@@ -1,6 +1,7 @@
 package com.yavl.netrew.game
 
 import com.badlogic.ashley.core.Engine
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
@@ -17,6 +18,7 @@ import com.yavl.netrew.game.pathfinding.*
 class World(val engine: Engine) {
     companion object {
         const val TILE_SIZE = 32f
+        val engine = PooledEngine()
     }
     lateinit var characterTexture: Texture
     lateinit var treeTexture: Texture
