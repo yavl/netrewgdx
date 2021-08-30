@@ -9,9 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
 import com.yavl.netrew.Globals
-import com.yavl.netrew.game.components.complex.CharacterComponent
-import com.yavl.netrew.game.components.complex.TreeComponent
-import com.yavl.netrew.hasComponent
+import com.yavl.netrew.globals.Fonts
 import com.yavl.netrew.ui.windows.CharacterPopupWindow
 import com.yavl.netrew.ui.windows.TreePopupWindow
 import ktx.actors.onClick
@@ -67,7 +65,7 @@ class MainMenu : Screen {
 
     fun showDebugWindow() {
         /// Debug menu:
-        debugLabel = Label("Netrew game", Label.LabelStyle(Globals.Fonts.chatFont, Color.WHITE))
+        debugLabel = Label("Netrew game", Label.LabelStyle(Fonts.chatFont, Color.WHITE))
         debugLabel.setAlignment(Align.topLeft)
 
         scroll = scene2d.scrollPane {
@@ -106,17 +104,6 @@ class MainMenu : Screen {
     }
 
     fun showPopupWindow(mouseX: Float, mouseY: Float, entity: Entity) {
-        if (entity.hasComponent(CharacterComponent::class.java)) {
-            characterPopupWindow.isVisible = true
-            characterPopupWindow.show()
-            characterPopupWindow.update(entity)
-            characterPopupWindow.setPosition(mouseX, Gdx.graphics.height.toFloat() - mouseY)
-        } else if (entity.hasComponent(TreeComponent::class.java)) {
-            treePopupWindow.isVisible = true
-            treePopupWindow.show()
-            treePopupWindow.update(entity)
-            treePopupWindow.setPosition(mouseX, Gdx.graphics.height.toFloat() - mouseY)
-        }
     }
 
     fun hidePopupWindow() {

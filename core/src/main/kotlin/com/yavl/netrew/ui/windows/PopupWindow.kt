@@ -15,15 +15,13 @@ import com.badlogic.gdx.utils.Disposable
 import com.yavl.netrew.Globals
 import com.yavl.netrew.game.components.Mappers
 import com.rafaskoberg.gdx.typinglabel.TypingConfig
-import com.rafaskoberg.gdx.typinglabel.TypingLabel
+import com.yavl.netrew.globals.Fonts
 import ktx.actors.alpha
-import ktx.scene2d.scene2d
-import ktx.scene2d.verticalGroup
 
 open class PopupWindow : Table(), Disposable {
     /** Vertical space between window elements */
     protected val verticalSpace = 10f
-    protected val labelStyle = Label.LabelStyle(Globals.Fonts.defaultFont, Color.WHITE)
+    protected val labelStyle = Label.LabelStyle(Fonts.defaultFont, Color.WHITE)
     private val drawableBgTexture: Texture
 
     init {
@@ -59,13 +57,7 @@ open class PopupWindow : Table(), Disposable {
 
     /** update label texts */
     open fun update(entity: Entity) {
-        if (Mappers.character.get(entity) == null) // todo fix why is characterComponent null on nameLabel hover
-            return
-        val characterName = Mappers.character.get(entity).name
         val characterAge = 0
-
-        val nameLabel = findActor<Label>("nameLabel")
-        nameLabel.setText(Globals.bundle.format("popup.name", characterName))
 
         val ageLabel = findActor<Label>("ageLabel")
         ageLabel.setText(Globals.bundle.format("popup.age", characterAge))

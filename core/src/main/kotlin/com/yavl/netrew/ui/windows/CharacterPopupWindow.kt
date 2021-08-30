@@ -31,13 +31,7 @@ class CharacterPopupWindow : PopupWindow() {
 
     /** update label texts */
     override fun update(entity: Entity) {
-        if (Mappers.character.get(entity) == null) // todo fix why is characterComponent null on nameLabel hover
-            return
-        val characterName = Mappers.character.get(entity).name
         val characterAge = 0
-
-        val nameLabel = findActor<Label>("nameLabel")
-        nameLabel.setText(Globals.bundle.format("popup.name", characterName))
 
         val ageLabel = findActor<Label>("ageLabel")
         ageLabel.setText(Globals.bundle.format("popup.age", characterAge))

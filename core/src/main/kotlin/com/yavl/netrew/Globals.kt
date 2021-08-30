@@ -52,12 +52,6 @@ object Globals {
     lateinit var bundle: I18NBundle
     lateinit var world: World
 
-    object Fonts {
-        lateinit var defaultFont: BitmapFont
-        lateinit var chatFont: BitmapFont
-        lateinit var characterFont: BitmapFont
-    }
-
     fun connect(ip: String, tcpPort: Int, udpPort: Int) {
         client = GameClient(ip, tcpPort, udpPort)
     }
@@ -100,9 +94,6 @@ object Globals {
     fun dispose() {
         stage.dispose()
         assets.dispose()
-        Fonts.defaultFont.dispose()
-        Fonts.chatFont.dispose()
-        Fonts.characterFont.dispose()
         console.dispose()
         consoleBgTexture.dispose()
     }
@@ -117,21 +108,6 @@ object Globals {
 
     fun hidePopupWindow() {
         mainMenu.hidePopupWindow()
-    }
-
-    fun generateFonts() {
-        Fonts.defaultFont = generateFont(24)
-        Fonts.chatFont = generateFont(20)
-        Fonts.characterFont = generateFont(20)
-    }
-
-    private fun generateFont(size: Int): BitmapFont {
-        val generator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Ubuntu-Regular.ttf"))
-        val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
-        parameter.size = size
-        parameter.magFilter = Texture.TextureFilter.Linear
-        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-        return generator.generateFont(parameter)
     }
 }
 

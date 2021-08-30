@@ -17,6 +17,7 @@ import com.yavl.netrew.Globals.uiStage
 import com.yavl.netrew.game.GameSaver
 import com.yavl.netrew.game.World
 import com.yavl.netrew.game.systems.*
+import com.yavl.netrew.globals.Fonts
 import com.yavl.netrew.ui.MainMenu
 import ktx.scene2d.Scene2DSkin
 
@@ -49,10 +50,9 @@ class Main : Game() {
         inputs.addProcessor(stage)
         Gdx.input.inputProcessor = inputs
 
-        Globals.generateFonts()
         Globals.bundle = assets.get("languages/bundle")
         Globals.skin = VisUI.getSkin()
-        Globals.skin.add("default-font", Globals.Fonts.defaultFont)
+        Globals.skin.add("default-font", Fonts.defaultFont)
         Globals.world = World(engine)
         Scene2DSkin.defaultSkin = Globals.skin
 

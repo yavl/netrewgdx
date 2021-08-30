@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Pool
-import com.yavl.netrew.Globals
+import com.yavl.netrew.globals.Fonts
 
 class LabelComponent() : Component, Pool.Poolable {
-    var label = Label("default", Label.LabelStyle(Globals.Fonts.characterFont, Color.WHITE))
+    var label = Label("default", Label.LabelStyle(Fonts.characterFont, Color.WHITE))
 
     init {
         label.setOrigin(Align.center)

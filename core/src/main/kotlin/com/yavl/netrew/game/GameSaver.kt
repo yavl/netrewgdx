@@ -3,23 +3,14 @@ package com.yavl.netrew.game
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
 import com.yavl.netrew.Globals
-import com.yavl.netrew.flipY
 import com.yavl.netrew.game.components.Mappers
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.components.VelocityComponent
-import com.yavl.netrew.game.components.complex.CharacterComponent
-import com.yavl.netrew.game.components.complex.HouseComponent
-import com.yavl.netrew.game.components.complex.TreeComponent
-import com.yavl.netrew.game.pathfinding.FlatTiledGraph
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
@@ -32,9 +23,6 @@ class GameSaver() {
     init {
         kryo.register(TransformComponent::class.java)
         kryo.register(VelocityComponent::class.java)
-        kryo.register(CharacterComponent::class.java)
-        kryo.register(HouseComponent::class.java)
-        kryo.register(TreeComponent::class.java)
         kryo.register(Int::class.java)
     }
 
@@ -45,47 +33,40 @@ class GameSaver() {
         run {
             val charactersFamily = Family.all(
                 TransformComponent::class.java,
-                VelocityComponent::class.java,
-                CharacterComponent::class.java
+                VelocityComponent::class.java
             )
             val charactersCount = engine.getEntitiesFor(charactersFamily.get()).size()
             kryo.writeObject(output, charactersCount)
             for (each in engine.getEntitiesFor(charactersFamily.get())) {
                 val transform = Mappers.transform.get(each)
                 val velocity = Mappers.velocity.get(each)
-                val character = Mappers.character.get(each)
 
                 kryo.writeObject(output, transform)
                 kryo.writeObject(output, velocity)
-                kryo.writeObject(output, character)
             }
         }
 
         // write houses
         run {
-            val housesFamily = Family.all(TransformComponent::class.java, HouseComponent::class.java)
+            val housesFamily = Family.all(TransformComponent::class.java)
             val housesCount = engine.getEntitiesFor(housesFamily.get()).size()
             kryo.writeObject(output, housesCount)
             for (each in engine.getEntitiesFor(housesFamily.get())) {
                 val transform = Mappers.transform.get(each)
-                val house = Mappers.house.get(each)
 
                 kryo.writeObject(output, transform)
-                kryo.writeObject(output, house)
             }
         }
 
         // write trees
         run {
-            val treesFamily = Family.all(TransformComponent::class.java, TreeComponent::class.java)
+            val treesFamily = Family.all(TransformComponent::class.java)
             val treesCount = engine.getEntitiesFor(treesFamily.get()).size()
             kryo.writeObject(output, treesCount)
             for (each in engine.getEntitiesFor(treesFamily.get())) {
                 val transform = Mappers.transform.get(each)
-                val tree = Mappers.tree.get(each)
 
                 kryo.writeObject(output, transform)
-                kryo.writeObject(output, tree)
             }
         }
 
@@ -102,13 +83,6 @@ class GameSaver() {
                 for (each in 0 until charactersCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
                     val velocity = kryo.readObject(input, VelocityComponent::class.java)
-                    val character = kryo.readObject(input, CharacterComponent::class.java)
-
-                    Globals.world.createCharacter(
-                        transform.pos,
-                        characterComponent = character,
-                        velocityComponent = velocity
-                    )
                 }
             }
 
@@ -117,10 +91,8 @@ class GameSaver() {
                 val housesCount = kryo.readObject(input, Int::class.java)
                 for (each in 0 until housesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
-                    val house = kryo.readObject(input, HouseComponent::class.java)
 
                     val node = Globals.world.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
-                    Globals.world.createHouse(node.x, node.y, house)
                 }
             }
 
@@ -129,10 +101,8 @@ class GameSaver() {
                 val treesCount = kryo.readObject(input, Int::class.java)
                 for (each in 0 until treesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
-                    val tree = kryo.readObject(input, TreeComponent::class.java)
 
                     val node = Globals.world.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
-                    Globals.world.createTree(node.x, node.y, tree)
                 }
             }
         } catch(e: Exception) {

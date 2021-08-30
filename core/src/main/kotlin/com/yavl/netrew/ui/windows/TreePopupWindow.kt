@@ -43,13 +43,7 @@ class TreePopupWindow : PopupWindow() {
 
     /** update label texts */
     override fun update(entity: Entity) {
-        if (Mappers.tree.get(entity) == null) // todo fix why is characterComponent null on nameLabel hover
-            return
-        val treeName = Mappers.tree.get(entity).name
         val treeAge = 0
-
-        val nameLabel = findActor<Label>("nameLabel")
-        nameLabel.setText(Globals.bundle.format("popup.name", treeName))
 
         val ageLabel = findActor<Label>("ageLabel")
         ageLabel.setText(Globals.bundle.format("popup.age", treeAge))

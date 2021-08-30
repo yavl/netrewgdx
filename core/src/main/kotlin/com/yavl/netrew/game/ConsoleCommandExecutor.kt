@@ -56,19 +56,16 @@ class ConsoleCommandExecutor() : CommandExecutor() {
 
     @ConsoleDoc(description = "Spawn character at cursor pos.")
     fun spawn() {
-        Globals.world.createCharacter(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos())
     }
 
     @ConsoleDoc(description = "Spawn tree at cursor pos.")
     fun tree() {
         val node = Globals.world.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
-        Globals.world.createTree(node.x, node.y)
     }
 
     @ConsoleDoc(description = "Spawn house at cursor pos.")
     fun house() {
         val node = Globals.world.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
-        Globals.world.createHouse(node.x, node.y)
     }
 
     @ConsoleDoc(description = "Save game.")
