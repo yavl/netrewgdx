@@ -1,15 +1,10 @@
 package com.yavl.netrew.game
 
-import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.PooledEngine
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.yavl.netrew.*
 import com.yavl.netrew.game.entities.EntityFactory
+import com.yavl.netrew.game.entities.createTerrain
 import com.yavl.netrew.game.pathfinding.*
 import com.yavl.netrew.globals.Assets
 
@@ -48,7 +43,8 @@ object World {
     }
 
     fun createTerrain(mapName: String) {
-        val terrain = EntityFactory.createHuman()
+        val terrain = EntityFactory.createTerrain("europe")
+        engine.addEntity(terrain)
     }
 
     fun saveGame() {
