@@ -7,17 +7,18 @@ import com.badlogic.gdx.graphics.Texture
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
-import com.yavl.netrew.Globals
+import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.Mappers
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.components.VelocityComponent
+import com.yavl.netrew.globals.Assets
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
 /**
  * A class to save and load game progress and settings
  */
-class GameSaver() {
+object GameSaver {
     val kryo = Kryo()
 
     init {
@@ -92,7 +93,7 @@ class GameSaver() {
                 for (each in 0 until housesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
 
-                    val node = Globals.world.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
+                    val node = World.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
                 }
             }
 
@@ -102,7 +103,7 @@ class GameSaver() {
                 for (each in 0 until treesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
 
-                    val node = Globals.world.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
+                    val node = World.worldMap.getNodeByPosition(transform.pos, World.TILE_SIZE)
                 }
             }
         } catch(e: Exception) {
@@ -112,9 +113,9 @@ class GameSaver() {
 
     fun saveSettings() {
         val prefs = Gdx.app.getPreferences("NetrewPreferences")
-        prefs.putFloat("cameraPosX", Globals.cam.position.x)
-        prefs.putFloat("cameraPosY", Globals.cam.position.y)
-        prefs.putFloat("cameraZoom", Globals.cam.zoom)
+        prefs.putFloat("cameraPosX", Main.cam.position.x)
+        prefs.putFloat("cameraPosY", Main.cam.position.y)
+        prefs.putFloat("cameraZoom", Main.cam.zoom)
         prefs.flush()
     }
 
@@ -123,21 +124,21 @@ class GameSaver() {
         val x = prefs.getFloat("cameraPosX", 0f)
         val y = prefs.getFloat("cameraPosY", 0f)
         val zoom = prefs.getFloat("cameraZoom", 1f)
-        Globals.cam.position.set(x, y, 0f)
-        Globals.cam.zoom = zoom
+        Main.cam.position.set(x, y, 0f)
+        Main.cam.zoom = zoom
     }
 
     /** Load map assets
      * @param mapName map folder name
      * @return map name and textures */
     fun loadMap(mapName: String): MapData {
-        Globals.assets.load("maps/$mapName/heightmap.png", Texture::class.java)
-        Globals.assets.load("maps/$mapName/terrain.png", Texture::class.java)
-        Globals.assets.load("maps/$mapName/population.png", Texture::class.java)
-        Globals.assets.finishLoading()
-        val terrainTexture = Globals.assets.get<Texture>("maps/$mapName/terrain.png")
-        val heightmapTexture = Globals.assets.get<Texture>("maps/$mapName/heightmap.png")
-        val populationTexture = Globals.assets.get<Texture>("maps/$mapName/population.png")
+        Assets.load("maps/$mapName/heightmap.png", Texture::class.java)
+        Assets.load("maps/$mapName/terrain.png", Texture::class.java)
+        Assets.load("maps/$mapName/population.png", Texture::class.java)
+        Assets.finishLoading()
+        val terrainTexture = Assets.get<Texture>("maps/$mapName/terrain.png")
+        val heightmapTexture = Assets.get<Texture>("maps/$mapName/heightmap.png")
+        val populationTexture = Assets.get<Texture>("maps/$mapName/population.png")
 
         return MapData(mapName, terrainTexture, heightmapTexture, populationTexture)
     }

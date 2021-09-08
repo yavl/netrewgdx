@@ -11,7 +11,7 @@ class InputManager() : InputProcessor {
     private val camSpeed = 500.0f
     private val dragOld = Vector2()
     private val dragNew = Vector2()
-    private val cam = Globals.cam
+    private val cam = Main.cam
 
     override fun keyDown(keycode: Int): Boolean {
         return false
@@ -74,8 +74,7 @@ class InputManager() : InputProcessor {
             cam.translate(0f, camSpeed * cam.zoom * dt, 0f)
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            val gameSaver = GameSaver()
-            gameSaver.saveSettings()
+            GameSaver.saveSettings()
             Gdx.app.exit()
         }
 

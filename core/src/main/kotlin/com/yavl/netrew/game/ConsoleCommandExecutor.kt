@@ -1,12 +1,11 @@
 package com.yavl.netrew.game
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Graphics
 import com.badlogic.gdx.math.Vector2
-import com.yavl.netrew.Globals
-import com.yavl.netrew.toWorldPos
 import com.strongjoshua.console.CommandExecutor
 import com.strongjoshua.console.annotation.ConsoleDoc
+import com.yavl.netrew.Main
+import com.yavl.netrew.globals.toWorldPos
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -19,34 +18,34 @@ class ConsoleCommandExecutor() : CommandExecutor() {
 
     @ConsoleDoc(description = "Show game timescale.")
     fun timescale() {
-        console.log("Timescale is set to ${Globals.timeScale}x")
+        console.log("Timescale is set to ${Main.timeScale}x")
     }
 
     @ConsoleDoc(description = "Set game timescale.")
     fun timescale(scale: Float) {
-        Globals.timeScale = scale
+        Main.timeScale = scale
         console.log("Timescale is set to ${scale}x")
     }
 
     @ConsoleDoc(description = "Set camera position (x, y).")
     fun cam(x: Float, y: Float) {
-        Globals.cam.position.set(x, y, 0f)
+        Main.cam.position.set(x, y, 0f)
     }
 
     @ConsoleDoc(description = "Set camera zoom.")
     fun zoom(zoom: Float) {
-        Globals.cam.zoom = zoom
+        Main.cam.zoom = zoom
     }
 
     @ConsoleDoc(description = "Show debug info.")
     fun debug(enabled: Boolean) {
-        Globals.stage.isDebugAll = enabled
-        Globals.uiStage.isDebugAll = enabled
+        Main.stage.isDebugAll = enabled
+        Main.uiStage.isDebugAll = enabled
     }
 
     @ConsoleDoc(description = "Show version info.")
     fun version() {
-        console.log(Globals.VERSION)
+        console.log(Main.VERSION)
     }
 
     @ConsoleDoc(description = "Show cursor world pos (x, y).")
@@ -60,33 +59,27 @@ class ConsoleCommandExecutor() : CommandExecutor() {
 
     @ConsoleDoc(description = "Spawn tree at cursor pos.")
     fun tree() {
-        val node = Globals.world.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
+        val node = World.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
     }
 
     @ConsoleDoc(description = "Spawn house at cursor pos.")
     fun house() {
-        val node = Globals.world.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
+        val node = World.worldMap.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
     }
 
     @ConsoleDoc(description = "Save game.")
     fun save() {
-        Globals.world.saveGame()
+        World.saveGame()
     }
 
     @ConsoleDoc(description = "Load game.")
     fun load() {
-        Globals.world.loadGame()
+        World.loadGame()
     }
 
     @ConsoleDoc(description = "Remove all characters.")
     fun clear() {
-        Globals.world.clearEntities()
-    }
-
-    @ConsoleDoc(description = "Toggle borders layer visibility.")
-    fun borders() {
-        Globals.world.showBorders = !Globals.world.showBorders
-        console.log("showBorders is set to ${Globals.world.showBorders}")
+        World.clearEntities()
     }
 
     @ConsoleDoc(description = "Execute commands from file.")

@@ -12,9 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
-import com.yavl.netrew.Globals
-import com.yavl.netrew.game.components.Mappers
 import com.rafaskoberg.gdx.typinglabel.TypingConfig
+import com.yavl.netrew.Main
 import com.yavl.netrew.globals.Fonts
 import ktx.actors.alpha
 
@@ -60,7 +59,7 @@ open class PopupWindow : Table(), Disposable {
         val characterAge = 0
 
         val ageLabel = findActor<Label>("ageLabel")
-        ageLabel.setText(Globals.bundle.format("popup.age", characterAge))
+        ageLabel.setText(Main.bundle.format("popup.age", characterAge))
     }
 
     override fun dispose() {

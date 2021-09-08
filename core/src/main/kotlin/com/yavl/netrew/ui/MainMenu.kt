@@ -8,7 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
-import com.yavl.netrew.Globals
+import com.yavl.netrew.Main
+import com.yavl.netrew.globals.Console
 import com.yavl.netrew.globals.Fonts
 import com.yavl.netrew.ui.windows.CharacterPopupWindow
 import com.yavl.netrew.ui.windows.TreePopupWindow
@@ -17,7 +18,7 @@ import ktx.actors.txt
 import ktx.scene2d.*
 
 class MainMenu : Screen {
-    private val stage = Globals.uiStage
+    private val stage = Main.uiStage
     lateinit var debugLabel: Label
     lateinit var scroll: ScrollPane
     val characterPopupWindow = CharacterPopupWindow()
@@ -25,7 +26,6 @@ class MainMenu : Screen {
     lateinit var timeScaleGroup: KHorizontalGroup
 
     init {
-        Globals.mainMenu = this
         stage.addActor(characterPopupWindow)
         stage.addActor(treePopupWindow)
     }
@@ -84,13 +84,13 @@ class MainMenu : Screen {
     fun showChangeTimescaleButtons() {
         timeScaleGroup = scene2d.horizontalGroup {
             textButton("Timescale 1x").onClick {
-                Globals.console.execCommand("timescale 1")
+                Console.execCommand("timescale 1")
             }
             textButton("Timescale 10x").onClick {
-                Globals.console.execCommand("timescale 10")
+                Console.execCommand("timescale 10")
             }
             textButton("Timescale 20x").onClick {
-                Globals.console.execCommand("timescale 20")
+                Console.execCommand("timescale 20")
             }
         }
         timeScaleGroup.setSize(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())

@@ -2,9 +2,8 @@ package com.yavl.netrew.ui.windows
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.yavl.netrew.Globals
-import com.yavl.netrew.game.components.Mappers
 import com.rafaskoberg.gdx.typinglabel.TypingLabel
+import com.yavl.netrew.Main
 import ktx.scene2d.scene2d
 import ktx.scene2d.verticalGroup
 
@@ -16,8 +15,8 @@ class CharacterPopupWindow : PopupWindow() {
         val ageLabel = Label("", labelStyle)
         ageLabel.name = "ageLabel"
 
-        val healthState = Globals.bundle.format("popup.health.wounded")
-        val healthString = Globals.bundle.format("popup.health", healthState, "{COLOR=RED}{SHAKE}")
+        val healthState = Main.bundle.format("popup.health.wounded")
+        val healthString = Main.bundle.format("popup.health", healthState, "{COLOR=RED}{SHAKE}")
         val woundedLabel = TypingLabel(healthString, labelStyle)
         woundedLabel.name = "woundedLabel"
         val vGroup = scene2d.verticalGroup {
@@ -34,6 +33,6 @@ class CharacterPopupWindow : PopupWindow() {
         val characterAge = 0
 
         val ageLabel = findActor<Label>("ageLabel")
-        ageLabel.setText(Globals.bundle.format("popup.age", characterAge))
+        ageLabel.setText(Main.bundle.format("popup.age", characterAge))
     }
 }
