@@ -72,7 +72,6 @@ class Main : Game() {
         engine.addSystem(MovementSystem())
         engine.addSystem(StageRenderingSystem(stage, 0))
         engine.addSystem(SpriteRenderingSystem())
-        engine.addSystem(HouseSpriteRenderingSystem())
         engine.addSystem(TreeSpriteRenderingSystem())
         engine.addSystem(NameLabelRenderingSystem())
         engine.addSystem(TreeCuttingSystem())
