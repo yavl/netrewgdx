@@ -1,8 +1,9 @@
-package com.yavl.netrew.game
+package com.yavl.netrew.globals
 
 import com.badlogic.gdx.Gdx
 
-class NameAssigner(path: String) {
+object NameAssigner {
+    private val path = "languages/names.txt"
     var names = mutableSetOf<String>()
     var unassignedNames = mutableSetOf<String>()
     var assignedNames = mutableSetOf<String>()

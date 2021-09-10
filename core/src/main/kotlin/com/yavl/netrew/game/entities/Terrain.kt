@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.GameSaver
 import com.yavl.netrew.game.World
-import com.yavl.netrew.game.components.Mappers
 import com.yavl.netrew.game.components.SpriteComponent
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.pathfinding.FlatTiledGraph
@@ -43,7 +42,7 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
         }
     }
     entity.add(sprite)
-    Main.stage.addActor(Mappers.sprite.get(entity).image)
+    Main.stage.addActor(sprite.image)
 
     World.worldMap = FlatTiledGraph()
     World.worldMap.init(heightmapPixmap)

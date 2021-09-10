@@ -1,6 +1,5 @@
 package com.yavl.netrew
 
-import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
@@ -20,7 +19,7 @@ import com.yavl.netrew.globals.Assets
 import com.yavl.netrew.globals.Console
 import com.yavl.netrew.globals.Engine
 import com.yavl.netrew.globals.Fonts
-import com.yavl.netrew.ui.MainMenu
+import com.yavl.netrew.ui.Hud
 import ktx.scene2d.Scene2DSkin
 
 class Main : Game() {
@@ -32,6 +31,7 @@ class Main : Game() {
         lateinit var stage: Stage
         lateinit var bundle: I18NBundle
         val cam = OrthographicCamera()
+        lateinit var hud: Hud
 
         // Game time
         val DEFAULT_TIMESCALE = 1f
@@ -40,7 +40,6 @@ class Main : Game() {
 
     private lateinit var batch: SpriteBatch
     private lateinit var inputManager: InputManager
-    private lateinit var menu: MainMenu
     private val inputs = InputMultiplexer()
 
     override fun create() {
@@ -65,8 +64,8 @@ class Main : Game() {
         Scene2DSkin.defaultSkin = VisUI.getSkin()
         Scene2DSkin.defaultSkin.add("default-font", Fonts.defaultFont)
 
-        menu = MainMenu()
-        setScreen(menu)
+        hud = Hud()
+        setScreen(hud)
 
         with(Engine) {
             addSystem(MovementSystem())
@@ -100,7 +99,7 @@ class Main : Game() {
         batch.dispose()
         Assets.dispose()
         uiStage.dispose()
-        menu.dispose()
+        hud.dispose()
         Console.dispose()
     }
 
@@ -110,7 +109,7 @@ class Main : Game() {
         uiStage.viewport.update(width, height, true)
         stage.viewport.update(width, height)
         Console.window.stage.viewport.update(width, height)
-        menu.resize(width, height)
+        hud.resize(width, height)
     }
 
     private fun initAssets() {

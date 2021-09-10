@@ -3,6 +3,7 @@ package com.yavl.netrew
 import kotlin.jvm.JvmStatic
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
+import com.badlogic.gdx.graphics.glutils.HdpiMode
 
 /** Launches the desktop (LWJGL3) application.  */
 object Lwjgl3Launcher {

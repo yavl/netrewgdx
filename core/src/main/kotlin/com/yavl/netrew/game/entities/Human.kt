@@ -1,19 +1,15 @@
 package com.yavl.netrew.game.entities
 
 import com.badlogic.ashley.core.Entity
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.yavl.netrew.Main
+import com.yavl.netrew.globals.NameAssigner
 import com.yavl.netrew.game.World
-import com.yavl.netrew.game.components.HumanComponent
-import com.yavl.netrew.game.components.SpriteComponent
-import com.yavl.netrew.game.components.TransformComponent
-import com.yavl.netrew.game.components.VelocityComponent
+import com.yavl.netrew.game.components.*
 import com.yavl.netrew.globals.Console
 import com.yavl.netrew.globals.Engine
-import com.yavl.netrew.globals.toWorldPos
 import ktx.actors.onClick
+import ktx.actors.txt
 
 fun EntityFactory.createHuman(): Entity {
     val entity = Engine.createEntity()
@@ -27,14 +23,21 @@ fun EntityFactory.createHuman(): Entity {
         onClick {
             Console.log("${transform.pos.x} : ${transform.pos.y}, ${sprite.image.x} : ${sprite.image.y}")
         }
+        Main.stage.addActor(this)
     }
-    Main.stage.addActor(sprite.image)
     val humanComponent = Engine.createComponent(HumanComponent::class.java)
+    humanComponent.name = NameAssigner.getUnassignedName()
+    val labelComponent = Engine.createComponent(LabelComponent::class.java)
+    with(labelComponent.label) {
+        txt = humanComponent.name
+        Main.stage.addActor(this)
+    }
     with(entity) {
         add(transform)
         add(velocity)
         add(sprite)
         add(humanComponent)
+        add(labelComponent)
     }
     return entity
 }

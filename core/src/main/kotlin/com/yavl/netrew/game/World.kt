@@ -5,15 +5,13 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
+import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.entities.EntityFactory
 import com.yavl.netrew.game.entities.createHuman
 import com.yavl.netrew.game.entities.createTerrain
 import com.yavl.netrew.game.pathfinding.*
-import com.yavl.netrew.globals.Assets
-import com.yavl.netrew.globals.Console
-import com.yavl.netrew.globals.Engine
-import com.yavl.netrew.globals.toWorldPos
+import com.yavl.netrew.globals.*
 
 /**
  * World class.
@@ -58,6 +56,8 @@ object World {
         val transform = human.getComponent(TransformComponent::class.java)
         transform.pos.set(x, y)
         Engine.addEntity(human)
+        Player.humans.add(human)
+        Main.hud.updateHumanPicker()
     }
 
     fun saveGame() {

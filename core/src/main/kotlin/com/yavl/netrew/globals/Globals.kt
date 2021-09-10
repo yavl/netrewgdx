@@ -44,6 +44,10 @@ fun <T : Component> Entity.hasComponent(componentType: Class<T>): Boolean {
     return ComponentMapper.getFor(componentType).get(this) != null
 }
 
+fun <T : Component> Entity.get(componentType: Class<T>): T {
+    return ComponentMapper.getFor(componentType).get(this)
+}
+
 inline fun <T : Actor> T.onHover(crossinline listener: T.() -> Unit): ClickListener {
     val clickListener = object : ClickListener() {
         override fun enter(event: InputEvent, x: Float, y: Float, pointer: Int, fromActor: Actor?) = listener()
