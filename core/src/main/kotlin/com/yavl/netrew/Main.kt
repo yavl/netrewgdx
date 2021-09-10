@@ -18,6 +18,7 @@ import com.yavl.netrew.game.World
 import com.yavl.netrew.game.systems.*
 import com.yavl.netrew.globals.Assets
 import com.yavl.netrew.globals.Console
+import com.yavl.netrew.globals.Engine
 import com.yavl.netrew.globals.Fonts
 import com.yavl.netrew.ui.MainMenu
 import ktx.scene2d.Scene2DSkin
@@ -41,8 +42,6 @@ class Main : Game() {
     private lateinit var inputManager: InputManager
     private lateinit var menu: MainMenu
     private val inputs = InputMultiplexer()
-
-    private val engine = PooledEngine()
 
     override fun create() {
         initAssets()
@@ -69,12 +68,13 @@ class Main : Game() {
         menu = MainMenu()
         setScreen(menu)
 
-        engine.addSystem(MovementSystem())
-        engine.addSystem(StageRenderingSystem(stage, 0))
-        engine.addSystem(SpriteRenderingSystem())
-        engine.addSystem(TreeSpriteRenderingSystem())
-        engine.addSystem(NameLabelRenderingSystem())
-        engine.addSystem(TreeCuttingSystem())
+        with(Engine) {
+            addSystem(MovementSystem())
+            addSystem(StageRenderingSystem(stage, 0))
+            addSystem(SpriteRenderingSystem())
+            addSystem(NameLabelRenderingSystem())
+            addSystem(TreeCuttingSystem())
+        }
         World.create()
 
         Console.execCommand("exec autoexec.cfg")
@@ -89,7 +89,7 @@ class Main : Game() {
 
         val dt = Gdx.graphics.deltaTime
         inputManager.handleInput(dt)
-        engine.update(dt)
+        Engine.update(dt)
         World.update(dt)
         super.render()
 

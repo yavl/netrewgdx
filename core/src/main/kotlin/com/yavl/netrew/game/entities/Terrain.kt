@@ -1,26 +1,24 @@
 package com.yavl.netrew.game.entities
 
 import com.badlogic.ashley.core.Entity
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.GameSaver
 import com.yavl.netrew.game.World
-import com.yavl.netrew.game.World.worldMap
 import com.yavl.netrew.game.components.Mappers
 import com.yavl.netrew.game.components.SpriteComponent
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.pathfinding.FlatTiledGraph
 import com.yavl.netrew.game.pathfinding.Pathfinder
 import com.yavl.netrew.game.pathfinding.TiledNode
-import com.yavl.netrew.globals.flipY
-import com.yavl.netrew.globals.onRightClick
+import com.yavl.netrew.globals.*
 import ktx.math.plus
-import ktx.scene2d.Scene2DSkin
 
 fun EntityFactory.createTerrain(mapName: String): Entity {
-    val entity = engine.createEntity()
+    val entity = Engine.createEntity()
     val mapData = GameSaver.loadMap(mapName)
     val terrainTexture = mapData.terrainTexture
     val heightmapTexture = mapData.heightmapTexture
@@ -30,16 +28,18 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
     val heightmapPixmap = heightmapTexture.textureData.consumePixmap()
     heightmapPixmap.flipY()
 
-    val transform = engine.createComponent(TransformComponent::class.java)
+    val transform = Engine.createComponent(TransformComponent::class.java)
     transform.pos.set(terrainTexture.width / 2f, terrainTexture.height / 2f)
     transform.scale.set(World.TILE_SIZE, World.TILE_SIZE)
     entity.add(transform)
 
-    val sprite = engine.createComponent(SpriteComponent::class.java)
+    val sprite = Engine.createComponent(SpriteComponent::class.java)
     sprite.image = Image(terrainTexture)
     with(sprite.image) {
         setScale(transform.scale.x, transform.scale.y)
         onRightClick {
+            val pos = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos()
+            Console.log("Mouse position: ${pos.x}, ${pos.y}")
         }
     }
     entity.add(sprite)

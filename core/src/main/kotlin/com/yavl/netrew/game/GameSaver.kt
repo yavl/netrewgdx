@@ -1,6 +1,5 @@
 package com.yavl.netrew.game
 
-import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
@@ -12,6 +11,7 @@ import com.yavl.netrew.game.components.Mappers
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.components.VelocityComponent
 import com.yavl.netrew.globals.Assets
+import com.yavl.netrew.globals.Engine
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
@@ -27,7 +27,7 @@ object GameSaver {
         kryo.register(Int::class.java)
     }
 
-    fun save(path: String, engine: Engine) {
+    fun save(path: String) {
         val output = Output(FileOutputStream(path))
 
         // write characters
@@ -36,9 +36,9 @@ object GameSaver {
                 TransformComponent::class.java,
                 VelocityComponent::class.java
             )
-            val charactersCount = engine.getEntitiesFor(charactersFamily.get()).size()
+            val charactersCount = Engine.getEntitiesFor(charactersFamily.get()).size()
             kryo.writeObject(output, charactersCount)
-            for (each in engine.getEntitiesFor(charactersFamily.get())) {
+            for (each in Engine.getEntitiesFor(charactersFamily.get())) {
                 val transform = Mappers.transform.get(each)
                 val velocity = Mappers.velocity.get(each)
 
@@ -50,9 +50,9 @@ object GameSaver {
         // write houses
         run {
             val housesFamily = Family.all(TransformComponent::class.java)
-            val housesCount = engine.getEntitiesFor(housesFamily.get()).size()
+            val housesCount = Engine.getEntitiesFor(housesFamily.get()).size()
             kryo.writeObject(output, housesCount)
-            for (each in engine.getEntitiesFor(housesFamily.get())) {
+            for (each in Engine.getEntitiesFor(housesFamily.get())) {
                 val transform = Mappers.transform.get(each)
 
                 kryo.writeObject(output, transform)
@@ -62,9 +62,9 @@ object GameSaver {
         // write trees
         run {
             val treesFamily = Family.all(TransformComponent::class.java)
-            val treesCount = engine.getEntitiesFor(treesFamily.get()).size()
+            val treesCount = Engine.getEntitiesFor(treesFamily.get()).size()
             kryo.writeObject(output, treesCount)
-            for (each in engine.getEntitiesFor(treesFamily.get())) {
+            for (each in Engine.getEntitiesFor(treesFamily.get())) {
                 val transform = Mappers.transform.get(each)
 
                 kryo.writeObject(output, transform)

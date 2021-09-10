@@ -1,12 +1,19 @@
 package com.yavl.netrew.game
 
 import com.badlogic.ashley.core.PooledEngine
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Vector2
+import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.entities.EntityFactory
+import com.yavl.netrew.game.entities.createHuman
 import com.yavl.netrew.game.entities.createTerrain
 import com.yavl.netrew.game.pathfinding.*
 import com.yavl.netrew.globals.Assets
+import com.yavl.netrew.globals.Console
+import com.yavl.netrew.globals.Engine
+import com.yavl.netrew.globals.toWorldPos
 
 /**
  * World class.
@@ -15,7 +22,6 @@ import com.yavl.netrew.globals.Assets
  */
 object World {
     const val TILE_SIZE = 32f
-    val engine = PooledEngine()
     lateinit var characterTexture: Texture
     lateinit var treeTexture: Texture
     lateinit var houseTexture: Texture
@@ -44,11 +50,18 @@ object World {
 
     fun createTerrain(mapName: String) {
         val terrain = EntityFactory.createTerrain("europe")
-        engine.addEntity(terrain)
+        Engine.addEntity(terrain)
+    }
+
+    fun createHuman(x: Float, y: Float) {
+        val human = EntityFactory.createHuman()
+        val transform = human.getComponent(TransformComponent::class.java)
+        transform.pos.set(x, y)
+        Engine.addEntity(human)
     }
 
     fun saveGame() {
-        GameSaver.save("saves/autosave.bin", engine)
+        GameSaver.save("saves/autosave.bin")
     }
 
     fun loadGame() {

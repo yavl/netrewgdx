@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2
 import com.strongjoshua.console.CommandExecutor
 import com.strongjoshua.console.annotation.ConsoleDoc
 import com.yavl.netrew.Main
+import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.globals.toWorldPos
 import java.time.Instant
 import java.time.ZoneId
@@ -53,8 +54,10 @@ class ConsoleCommandExecutor() : CommandExecutor() {
         console.log("${Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos()}")
     }
 
-    @ConsoleDoc(description = "Spawn character at cursor pos.")
+    @ConsoleDoc(description = "Spawn human at cursor pos.")
     fun spawn() {
+        val pos = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos()
+        World.createHuman(pos.x, pos.y)
     }
 
     @ConsoleDoc(description = "Spawn tree at cursor pos.")

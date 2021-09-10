@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.math.Vector2
 import com.yavl.netrew.game.GameSaver
 import com.badlogic.gdx.math.Vector3
+import com.yavl.netrew.globals.Console
 
 class InputManager() : InputProcessor {
     private val camSpeed = 500.0f
