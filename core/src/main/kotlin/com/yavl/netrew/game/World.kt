@@ -1,13 +1,11 @@
 package com.yavl.netrew.game
 
-import com.badlogic.ashley.core.PooledEngine
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.math.Vector2
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.entities.EntityFactory
+import com.yavl.netrew.game.entities.createDebugLabel
 import com.yavl.netrew.game.entities.createHuman
 import com.yavl.netrew.game.entities.createTerrain
 import com.yavl.netrew.game.pathfinding.*
@@ -41,6 +39,7 @@ object World {
                 null
             }
         }
+        createDebugLabel()
     }
 
     fun update(deltaTime: Float) {
@@ -58,6 +57,11 @@ object World {
         Engine.addEntity(human)
         Player.humans.add(human)
         Main.hud.updateHumanPicker()
+    }
+
+    fun createDebugLabel() {
+        val debugLabel = EntityFactory.createDebugLabel()
+        Engine.addEntity(debugLabel)
     }
 
     fun saveGame() {

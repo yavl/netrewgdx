@@ -67,7 +67,7 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
     /// spawn trees according to heightmap
     for (x in 0 until FlatTiledGraph.sizeX) {
         for (y in 0 until FlatTiledGraph.sizeY) {
-            if (World.worldMap[x, y].type == TiledNode.TILE_TREE) {
+            if (World.worldMap[x, y]?.type == TiledNode.TILE_TREE) {
                 //createTree(x, y)
             }
         }
@@ -84,9 +84,11 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
         for (y in 0 until populationPixmap.height) {
             val color = Color(populationPixmap.getPixel(x, y))
             if (color != Color.BLACK) {
-                var pos = World.worldMap[x, y].toWorldPos(World.TILE_SIZE)
-                val offsetXY = World.TILE_SIZE / 2f
-                pos += offsetXY
+                World.worldMap[x, y]?.let { node ->
+                    var pos = node.toWorldPos(World.TILE_SIZE)
+                    val offsetXY = World.TILE_SIZE / 2f
+                    pos += offsetXY
+                }
                 //createCharacter(pos, color)
             }
         }

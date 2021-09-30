@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2
 import com.strongjoshua.console.CommandExecutor
 import com.strongjoshua.console.annotation.ConsoleDoc
 import com.yavl.netrew.Main
-import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.globals.toWorldPos
 import java.time.Instant
 import java.time.ZoneId

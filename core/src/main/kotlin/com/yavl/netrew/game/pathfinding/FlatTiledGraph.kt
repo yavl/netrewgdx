@@ -73,24 +73,30 @@ class FlatTiledGraph : TiledGraph<FlatTiledNode?> {
 
     fun setNodeType(x: Int, y: Int, type: Int) {
         val node = get(x, y)
-        node.type = type
-        node.connections.clear()
-        if (type == TILE_FLOOR) {
-            if (x > 0)
-                addConnection(node, -1, 0)
-            if (y > 0)
-                addConnection(node, 0, -1)
-            if (x < sizeX - 1)
-                addConnection(node, 1, 0)
-            if (y < sizeY - 1)
-                addConnection(node, 0, 1)
+        node?.let {
+            node.type = type
+            node.connections.clear()
+            if (type == TILE_FLOOR) {
+                if (x > 0)
+                    addConnection(node, -1, 0)
+                if (y > 0)
+                    addConnection(node, 0, -1)
+                if (x < sizeX - 1)
+                    addConnection(node, 1, 0)
+                if (y < sizeY - 1)
+                    addConnection(node, 0, 1)
+            }
         }
     }
 
-    operator fun get(x: Int, y: Int): FlatTiledNode = getNode(x, y)
+    operator fun get(x: Int, y: Int): FlatTiledNode? = getNode(x, y)
 
-    override fun getNode(x: Int, y: Int): FlatTiledNode {
-        return nodes[x * sizeY + y]
+    override fun getNode(x: Int, y: Int): FlatTiledNode? {
+        val index = x * sizeY + y
+        if (index < 0 || index >= nodeCount) {
+            return null
+        }
+        return nodes[index]
     }
 
     override fun getNode(index: Int): FlatTiledNode {
@@ -103,7 +109,7 @@ class FlatTiledGraph : TiledGraph<FlatTiledNode?> {
 
     private fun addConnection(n: FlatTiledNode, xOffset: Int, yOffset: Int) {
         val target = getNode(n.x + xOffset, n.y + yOffset)
-        if (target.type == TILE_FLOOR)
+        if (target?.type == TILE_FLOOR)
             n.connections.add(FlatTiledConnection(this, n, target))
     }
 
@@ -121,7 +127,7 @@ class FlatTiledGraph : TiledGraph<FlatTiledNode?> {
         return node!!.index
     }
 
-    fun getNodeByPosition(position: Vector2, tileSize: Float): FlatTiledNode {
+    fun getNodeByPosition(position: Vector2, tileSize: Float): FlatTiledNode? {
         val x = (position.x / tileSize).toInt()
         val y = (position.y / tileSize).toInt()
         return getNode(x, y)

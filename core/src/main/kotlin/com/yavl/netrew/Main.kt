@@ -73,6 +73,7 @@ class Main : Game() {
             addSystem(SpriteRenderingSystem())
             addSystem(NameLabelRenderingSystem())
             addSystem(TreeCuttingSystem())
+            addSystem(DebugLabelRenderingSystem())
         }
         World.create()
 
