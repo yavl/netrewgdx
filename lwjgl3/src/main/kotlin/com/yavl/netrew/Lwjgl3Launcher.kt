@@ -1,9 +1,9 @@
 package com.yavl.netrew
 
 import kotlin.jvm.JvmStatic
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
-import com.badlogic.gdx.graphics.glutils.HdpiMode
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import org.lwjgl.opengl.Display
 
 /** Launches the desktop (LWJGL3) application.  */
 object Lwjgl3Launcher {
@@ -12,16 +12,19 @@ object Lwjgl3Launcher {
         createApplication()
     }
 
-    private fun createApplication(): Lwjgl3Application {
-        return Lwjgl3Application(Main(), defaultConfiguration)
+    private fun createApplication(): LwjglApplication {
+        return LwjglApplication(Main(), defaultConfiguration)
     }
 
-    private val defaultConfiguration: Lwjgl3ApplicationConfiguration
+    private val defaultConfiguration: LwjglApplicationConfiguration
         private get() {
-            val configuration = Lwjgl3ApplicationConfiguration()
-            configuration.setTitle("Netrew")
-            configuration.setWindowedMode(1600, 1200)
-            configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png")
-            return configuration
+            // temporarily use lwjgl2 since lwjgl3 crashes on M1 macs (Rosetta 2)
+            val config = LwjglApplicationConfiguration()
+            config.title = "Netrew"
+            config.width = 800
+            config.height = 600
+            config.resizable = false
+            config.useHDPI = true
+            return config
         }
 }
