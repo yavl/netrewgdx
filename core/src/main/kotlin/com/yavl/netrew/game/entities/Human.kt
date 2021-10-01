@@ -1,6 +1,8 @@
 package com.yavl.netrew.game.entities
 
 import com.badlogic.ashley.core.Entity
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.yavl.netrew.Main
 import com.yavl.netrew.globals.NameAssigner
@@ -11,9 +13,13 @@ import com.yavl.netrew.globals.Engine
 import ktx.actors.onClick
 import ktx.actors.txt
 
-fun EntityFactory.createHuman(): Entity {
+fun EntityFactory.createHuman(position: Vector2 = Vector2.Zero, color: Color = Color.WHITE): Entity {
     val entity = Engine.createEntity()
     val transform = Engine.createComponent(TransformComponent::class.java)
+    with(transform) {
+        pos.x = position.x
+        pos.y = position.y
+    }
     val velocity = Engine.createComponent(VelocityComponent::class.java)
     val sprite = Engine.createComponent(SpriteComponent::class.java)
     with(sprite) {

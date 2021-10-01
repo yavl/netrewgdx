@@ -68,12 +68,12 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
     for (x in 0 until FlatTiledGraph.sizeX) {
         for (y in 0 until FlatTiledGraph.sizeY) {
             if (World.worldMap[x, y]?.type == TiledNode.TILE_TREE) {
-                //createTree(x, y)
+                //createTree()
             }
         }
     }
 
-    /// spawn trees according to population map
+    /// spawn characters according to population map
     val populationTexture = mapData.populationTexture
     if (!populationTexture.textureData.isPrepared) {
         populationTexture.textureData.prepare()
@@ -88,8 +88,8 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
                     var pos = node.toWorldPos(World.TILE_SIZE)
                     val offsetXY = World.TILE_SIZE / 2f
                     pos += offsetXY
+                    createHuman(pos, color)
                 }
-                //createCharacter(pos, color)
             }
         }
     }
