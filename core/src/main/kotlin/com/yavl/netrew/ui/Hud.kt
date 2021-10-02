@@ -77,6 +77,7 @@ class Hud : Screen {
         for (entity in Player.humans) {
             val textButton = scene2d.textButton(entity.get(HumanComponent::class.java).name)
             textButton.onClick {
+                Player.selectedHuman = entity
                 val pos = entity.get(TransformComponent::class.java).pos
                 Main.cam.position.set(pos, 0f)
             }

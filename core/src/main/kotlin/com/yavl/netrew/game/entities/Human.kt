@@ -10,6 +10,7 @@ import com.yavl.netrew.game.World
 import com.yavl.netrew.game.components.*
 import com.yavl.netrew.globals.Console
 import com.yavl.netrew.globals.Engine
+import com.yavl.netrew.globals.Player
 import ktx.actors.onClick
 import ktx.actors.txt
 
@@ -30,7 +31,7 @@ fun EntityFactory.buildHuman(position: Vector2 = Vector2.Zero, color: Color = Co
         y = transform.pos.y
         setColor(color)
         onClick {
-            Console.log("${transform.pos.x} : ${transform.pos.y}, ${sprite.image.x} : ${sprite.image.y}")
+            Player.selectedHuman = entity
         }
         Main.stage.addActor(this)
     }

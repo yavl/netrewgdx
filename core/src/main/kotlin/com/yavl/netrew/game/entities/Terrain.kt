@@ -11,6 +11,7 @@ import com.yavl.netrew.game.World
 import com.yavl.netrew.game.components.SpriteComponent
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.pathfinding.FlatTiledGraph
+import com.yavl.netrew.game.pathfinding.FlatTiledNode
 import com.yavl.netrew.game.pathfinding.Pathfinder
 import com.yavl.netrew.game.pathfinding.TiledNode
 import com.yavl.netrew.globals.*
@@ -37,8 +38,11 @@ fun EntityFactory.buildTerrain(mapName: String): Entity {
     with(sprite.image) {
         setScale(transform.scale.x, transform.scale.y)
         onRightClick {
-            val pos = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos()
-            Console.log("Mouse position: ${pos.x}, ${pos.y}")
+            Player.selectedHuman?.let {  human ->
+                World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)?.let { endNode ->
+                    World.pathfinder.moveEntityTo(human, endNode)
+                }
+            }
         }
     }
     entity.add(sprite)
