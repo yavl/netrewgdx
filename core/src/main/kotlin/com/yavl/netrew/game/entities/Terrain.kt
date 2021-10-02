@@ -16,7 +16,7 @@ import com.yavl.netrew.game.pathfinding.TiledNode
 import com.yavl.netrew.globals.*
 import ktx.math.plus
 
-fun EntityFactory.createTerrain(mapName: String): Entity {
+fun EntityFactory.buildTerrain(mapName: String): Entity {
     val entity = Engine.createEntity()
     val mapData = GameSaver.loadMap(mapName)
     val terrainTexture = mapData.terrainTexture
@@ -44,10 +44,10 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
     entity.add(sprite)
     Main.stage.addActor(sprite.image)
 
-    World.worldMap = FlatTiledGraph()
-    World.worldMap.init(heightmapPixmap)
+    World.grid = FlatTiledGraph()
+    World.grid.init(heightmapPixmap)
     heightmapPixmap.dispose()
-    World.pathfinder = Pathfinder(World.worldMap)
+    World.pathfinder = Pathfinder(World.grid)
 
     /// create TILE TYPES labels
     /*
@@ -67,7 +67,7 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
     /// spawn trees according to heightmap
     for (x in 0 until FlatTiledGraph.sizeX) {
         for (y in 0 until FlatTiledGraph.sizeY) {
-            if (World.worldMap[x, y]?.type == TiledNode.TILE_TREE) {
+            if (World.grid[x, y]?.type == TiledNode.TILE_TREE) {
                 //createTree()
             }
         }
@@ -84,11 +84,11 @@ fun EntityFactory.createTerrain(mapName: String): Entity {
         for (y in 0 until populationPixmap.height) {
             val color = Color(populationPixmap.getPixel(x, y))
             if (color != Color.BLACK) {
-                World.worldMap[x, y]?.let { node ->
+                World.grid[x, y]?.let { node ->
                     var pos = node.toWorldPos(World.TILE_SIZE)
                     val offsetXY = World.TILE_SIZE / 2f
                     pos += offsetXY
-                    createHuman(pos, color)
+                    World.createHuman(pos, color)
                 }
             }
         }

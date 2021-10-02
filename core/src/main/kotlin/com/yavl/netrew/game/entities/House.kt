@@ -8,7 +8,7 @@ import com.yavl.netrew.game.components.SpriteComponent
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.globals.Engine
 
-fun EntityFactory.createHouse(): Entity {
+fun EntityFactory.buildHouse(): Entity {
     val entity = Engine.createEntity()
     val transform = Engine.createComponent(TransformComponent::class.java)
     val sprite = Engine.createComponent(SpriteComponent::class.java)

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.utils.Align
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.HumanComponent
+import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.globals.Console
 import com.yavl.netrew.globals.Player
 import com.yavl.netrew.globals.get
@@ -75,6 +76,10 @@ class Hud : Screen {
         humanPickerGroup.clear()
         for (entity in Player.humans) {
             val textButton = scene2d.textButton(entity.get(HumanComponent::class.java).name)
+            textButton.onClick {
+                val pos = entity.get(TransformComponent::class.java).pos
+                Main.cam.position.set(pos, 0f)
+            }
             humanPickerGroup.addActor(textButton)
         }
         humanPickerGroup.setOrigin(humanPickerGroup.width / 2, humanPickerGroup.height / 2)

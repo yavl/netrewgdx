@@ -2,12 +2,13 @@ package com.yavl.netrew.game
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Vector2
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.entities.EntityFactory
-import com.yavl.netrew.game.entities.createDebugLabel
-import com.yavl.netrew.game.entities.createHuman
-import com.yavl.netrew.game.entities.createTerrain
+import com.yavl.netrew.game.entities.buildDebugLabel
+import com.yavl.netrew.game.entities.buildHuman
+import com.yavl.netrew.game.entities.buildTerrain
 import com.yavl.netrew.game.pathfinding.*
 import com.yavl.netrew.globals.*
 
@@ -21,7 +22,7 @@ object World {
     lateinit var characterTexture: Texture
     lateinit var treeTexture: Texture
     lateinit var houseTexture: Texture
-    lateinit var worldMap: FlatTiledGraph
+    lateinit var grid: FlatTiledGraph
     lateinit var pathfinder: Pathfinder
     lateinit var coloredBorders: Array<Array<Color?>>
 
@@ -46,21 +47,21 @@ object World {
     }
 
     fun createTerrain(mapName: String) {
-        val terrain = EntityFactory.createTerrain("europe")
+        val terrain = EntityFactory.buildTerrain("europe")
         Engine.addEntity(terrain)
     }
 
-    fun createHuman(x: Float, y: Float) {
-        val human = EntityFactory.createHuman()
+    fun createHuman(pos: Vector2 = Vector2.Zero, color: Color = Color.WHITE) {
+        val human = EntityFactory.buildHuman(pos, color)
         val transform = human.getComponent(TransformComponent::class.java)
-        transform.pos.set(x, y)
+        transform.pos.set(pos.x, pos.y)
         Engine.addEntity(human)
         Player.humans.add(human)
         Main.hud.updateHumanPicker()
     }
 
     fun createDebugLabel() {
-        val debugLabel = EntityFactory.createDebugLabel()
+        val debugLabel = EntityFactory.buildDebugLabel()
         Engine.addEntity(debugLabel)
     }
 

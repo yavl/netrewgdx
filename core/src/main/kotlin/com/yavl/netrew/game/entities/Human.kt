@@ -13,7 +13,7 @@ import com.yavl.netrew.globals.Engine
 import ktx.actors.onClick
 import ktx.actors.txt
 
-fun EntityFactory.createHuman(position: Vector2 = Vector2.Zero, color: Color = Color.WHITE): Entity {
+fun EntityFactory.buildHuman(position: Vector2 = Vector2.Zero, color: Color = Color.WHITE): Entity {
     val entity = Engine.createEntity()
     val transform = Engine.createComponent(TransformComponent::class.java)
     with(transform) {
@@ -26,6 +26,9 @@ fun EntityFactory.createHuman(position: Vector2 = Vector2.Zero, color: Color = C
         image = Image(World.characterTexture)
     }
     with(sprite.image) {
+        x = transform.pos.x
+        y = transform.pos.y
+        setColor(color)
         onClick {
             Console.log("${transform.pos.x} : ${transform.pos.y}, ${sprite.image.x} : ${sprite.image.y}")
         }

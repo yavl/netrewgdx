@@ -8,7 +8,7 @@ import com.yavl.netrew.game.components.debug.DebugComponent
 import com.yavl.netrew.globals.Engine
 import ktx.actors.txt
 
-fun EntityFactory.createDebugLabel(): Entity {
+fun EntityFactory.buildDebugLabel(): Entity {
     val entity = Engine.createEntity()
     val transform = Engine.createComponent(TransformComponent::class.java)
     val labelComponent = Engine.createComponent(LabelComponent::class.java)

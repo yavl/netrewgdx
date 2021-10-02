@@ -13,13 +13,12 @@ class NameLabelRenderingSystem : IteratingSystem(Family.all(
         TransformComponent::class.java,
         SpriteComponent::class.java).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        val pos = entity.get(TransformComponent::class.java).pos
+        val transform = entity.get(TransformComponent::class.java)
         val labelComponent = entity.get(LabelComponent::class.java)
         val sprite = entity.get(SpriteComponent::class.java)
 
         val label = labelComponent.label
-        label.x = pos.x - label.width / 2f
-        label.y = pos.y - label.height - sprite.image.height / 2f
-        // work in progress
+        label.x = transform.pos.x - label.width / 2f
+        label.y = transform.pos.y - label.height - sprite.image.height / 2f
     }
 }
