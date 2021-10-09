@@ -36,7 +36,7 @@ class Pathfinder(worldMap: FlatTiledGraph) {
             if (searchPath(startNode, endNode) && startNode != endNode) {
                 val path = this.path
                 velocity.hasTargetPosition = true
-                velocity.targetPosition = path[0].toWorldPos(TILE_SIZE)
+                velocity.targetPosition = path[1].toWorldPos(TILE_SIZE)
                 val offsetXY = TILE_SIZE / 2f
                 velocity.targetPosition += offsetXY
                 velocity.direction = (velocity.targetPosition - pos).nor()
