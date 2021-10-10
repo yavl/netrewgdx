@@ -32,21 +32,21 @@ class Pathfinder(worldMap: FlatTiledGraph) {
         val velocity = entity.get(VelocityComponent::class.java)
         val pos = entity.get(TransformComponent::class.java).pos
         velocity.targetPositions.clear()
-        World.grid.getNodeByPosition(Vector2(pos.x, pos.y), TILE_SIZE)?.let { startNode ->
+        World.grid.getNodeByPosition(Vector2(pos.x, pos.y))?.let { startNode ->
             if (searchPath(startNode, endNode) && startNode != endNode) {
                 val path = this.path
                 velocity.hasTargetPosition = true
-                velocity.targetPosition = path[1].toWorldPos(TILE_SIZE)
+                velocity.targetPosition = path[1].toWorldPos()
                 val offsetXY = TILE_SIZE / 2f
                 velocity.targetPosition += offsetXY
                 velocity.direction = (velocity.targetPosition - pos).nor()
 
                 for (i in 1 until path.getCount()) {
                     val each = path[i]
-                    val targetPos = each.toWorldPos(TILE_SIZE)
+                    val targetPos = each.toWorldPos()
                     targetPos.set(targetPos.x + offsetXY, targetPos.y + offsetXY)
                     velocity.targetPositions.add(targetPos)
-                    Console.log("${each.toWorldPos(TILE_SIZE).x}, ${each.toWorldPos(TILE_SIZE).y}")
+                    Console.log("${each.toWorldPos().x}, ${each.toWorldPos().y}")
                 }
             }
         }

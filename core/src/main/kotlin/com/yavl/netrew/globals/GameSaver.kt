@@ -96,7 +96,7 @@ object GameSaver {
                 for (entity in 0 until housesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
 
-                    val node = World.grid.getNodeByPosition(transform.pos, World.TILE_SIZE)
+                    val node = World.grid.getNodeByPosition(transform.pos)
                 }
             }
 
@@ -106,7 +106,7 @@ object GameSaver {
                 for (entity in 0 until treesCount) {
                     val transform = kryo.readObject(input, TransformComponent::class.java)
 
-                    val node = World.grid.getNodeByPosition(transform.pos, World.TILE_SIZE)
+                    val node = World.grid.getNodeByPosition(transform.pos)
                 }
             }
         } catch(e: Exception) {

@@ -9,9 +9,12 @@ import com.badlogic.gdx.utils.Array
  * @param speed pixels per second
  */
 class VelocityComponent : Component, Pool.Poolable {
+    val WATER_SPEED = 10f
+    val MAX_SPEED = 100f
+
     var speed = 0f
-    var maxSpeed = 100f
     var direction = Vector2(0f, 0f)
+    var previousPosition: Vector2? = null
 
     // vars for pathfinding
     var hasTargetPosition = false
@@ -20,7 +23,6 @@ class VelocityComponent : Component, Pool.Poolable {
 
     override fun reset() {
         speed = 0f
-        maxSpeed = 100f
         direction.set(0f, 0f)
         hasTargetPosition = false
         targetPosition = Vector2.Zero

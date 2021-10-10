@@ -39,14 +39,14 @@ fun EntityFactory.buildTerrain(mapName: String): Entity {
         setScale(transform.scale.x, transform.scale.y)
         onRightClick {
             Player.selectedHuman?.let {  human ->
-                World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)?.let { endNode ->
+                World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos())?.let { endNode ->
                     World.pathfinder.moveEntityTo(human, endNode)
                 }
             }
         }
     }
     entity.add(sprite)
-    Main.stage.addActor(sprite.image)
+    Layer.terrain.addActor(sprite.image)
 
     World.grid = FlatTiledGraph()
     World.grid.init(heightmapPixmap)
@@ -61,7 +61,7 @@ fun EntityFactory.buildTerrain(mapName: String): Entity {
                 val label = Label(worldMap.getNode(x, y).type.toString(), Scene2DSkin.defaultSkin)
                 label.setPosition(x * World.TILE_SIZE, y * World.TILE_SIZE)
                 if (worldMap.getNode(x, y).type == 1)
-                    Main.stage.addActor(label)
+                    Layer.terrain.addActor(label)
             }
         }
     }
@@ -71,8 +71,10 @@ fun EntityFactory.buildTerrain(mapName: String): Entity {
     /// spawn trees according to heightmap
     for (x in 0 until FlatTiledGraph.sizeX) {
         for (y in 0 until FlatTiledGraph.sizeY) {
-            if (World.grid[x, y]?.type == TiledNode.TILE_TREE) {
-                //createTree()
+            World.grid[x, y]?.let { node ->
+                if (node.type == TiledNode.TILE_TREE) {
+                    World.createTree(node.toWorldPos())
+                }
             }
         }
     }
@@ -89,7 +91,7 @@ fun EntityFactory.buildTerrain(mapName: String): Entity {
             val color = Color(populationPixmap.getPixel(x, y))
             if (color != Color.BLACK) {
                 World.grid[x, y]?.let { node ->
-                    var pos = node.toWorldPos(World.TILE_SIZE)
+                    var pos = node.toWorldPos()
                     val offsetXY = World.TILE_SIZE / 2f
                     pos += offsetXY
                     World.createHuman(pos, color)

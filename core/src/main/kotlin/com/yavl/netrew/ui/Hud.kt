@@ -6,10 +6,7 @@ import com.badlogic.gdx.utils.Align
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.HumanComponent
 import com.yavl.netrew.game.components.TransformComponent
-import com.yavl.netrew.globals.Console
-import com.yavl.netrew.globals.Player
-import com.yavl.netrew.globals.get
-import com.yavl.netrew.globals.onHover
+import com.yavl.netrew.globals.*
 import com.yavl.netrew.ui.windows.CharacterPopupWindow
 import com.yavl.netrew.ui.windows.TreePopupWindow
 import ktx.actors.onClick

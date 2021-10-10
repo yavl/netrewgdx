@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.yavl.netrew.Main
 import com.yavl.netrew.game.components.TransformComponent
-import com.yavl.netrew.game.entities.EntityFactory
-import com.yavl.netrew.game.entities.buildDebugLabel
-import com.yavl.netrew.game.entities.buildHuman
-import com.yavl.netrew.game.entities.buildTerrain
+import com.yavl.netrew.game.entities.*
 import com.yavl.netrew.game.pathfinding.*
 import com.yavl.netrew.globals.*
 
@@ -51,10 +48,13 @@ object World {
         Engine.addEntity(terrain)
     }
 
-    fun createHuman(pos: Vector2 = Vector2.Zero, color: Color = Color.WHITE) {
+    fun createTree(pos: Vector2) {
+        val tree = EntityFactory.buildTree(pos)
+        Engine.addEntity(tree)
+    }
+
+    fun createHuman(pos: Vector2, color: Color = Color.WHITE) {
         val human = EntityFactory.buildHuman(pos, color)
-        val transform = human.getComponent(TransformComponent::class.java)
-        transform.pos.set(pos.x, pos.y)
         Engine.addEntity(human)
         Player.humans.add(human)
         Main.hud.updateHumanPicker()

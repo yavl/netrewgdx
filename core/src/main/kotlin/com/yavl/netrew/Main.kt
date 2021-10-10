@@ -15,10 +15,7 @@ import com.kotcrab.vis.ui.VisUI
 import com.yavl.netrew.game.GameSaver
 import com.yavl.netrew.game.World
 import com.yavl.netrew.game.systems.*
-import com.yavl.netrew.globals.Assets
-import com.yavl.netrew.globals.Console
-import com.yavl.netrew.globals.Engine
-import com.yavl.netrew.globals.Fonts
+import com.yavl.netrew.globals.*
 import com.yavl.netrew.ui.Hud
 import ktx.scene2d.Scene2DSkin
 
@@ -66,6 +63,11 @@ class Main : Game() {
 
         hud = Hud()
         setScreen(hud)
+
+        stage.addActor(Layer.terrain)
+        stage.addActor(Layer.humans)
+        stage.addActor(Layer.trees)
+        stage.addActor(Layer.hud)
 
         with(Engine) {
             addSystem(MovementSystem())

@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
+import com.yavl.netrew.game.World
 import com.yavl.netrew.game.pathfinding.TiledNode.Companion.TILE_FLOOR
 import com.yavl.netrew.game.pathfinding.TiledNode.Companion.TILE_TREE
 import com.yavl.netrew.game.pathfinding.TiledNode.Companion.TILE_WATER
@@ -127,7 +128,8 @@ class FlatTiledGraph : TiledGraph<FlatTiledNode?> {
         return node!!.index
     }
 
-    fun getNodeByPosition(position: Vector2, tileSize: Float): FlatTiledNode? {
+    fun getNodeByPosition(position: Vector2): FlatTiledNode? {
+        val tileSize = World.TILE_SIZE
         val x = (position.x / tileSize).toInt()
         val y = (position.y / tileSize).toInt()
         return getNode(x, y)

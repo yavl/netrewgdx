@@ -19,12 +19,12 @@ class DebugLabelRenderingSystem : IteratingSystem(Family.all(LabelComponent::cla
         debug.cursorPos = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos()
         with(label.label) {
             txt = "${debug.cursorPos.x}, ${debug.cursorPos.y}"
-            World.grid.getNodeByPosition(debug.cursorPos, World.TILE_SIZE)?.let { node ->
+            World.grid.getNodeByPosition(debug.cursorPos)?.let { node ->
                 txt += "\n${node.x}, ${node.y}"
             }
             x = debug.cursorPos.x - width / 2f
             y = debug.cursorPos.y + 50
         }
-        World.grid.getNodeByPosition(debug.cursorPos, World.TILE_SIZE)
+        World.grid.getNodeByPosition(debug.cursorPos)
     }
 }

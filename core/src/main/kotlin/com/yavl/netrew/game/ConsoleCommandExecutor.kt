@@ -61,12 +61,12 @@ class ConsoleCommandExecutor() : CommandExecutor() {
 
     @ConsoleDoc(description = "Spawn tree at cursor pos.")
     fun tree() {
-        val node = World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
+        val node = World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos())
     }
 
     @ConsoleDoc(description = "Spawn house at cursor pos.")
     fun house() {
-        val node = World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos(), World.TILE_SIZE)
+        val node = World.grid.getNodeByPosition(Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()).toWorldPos())
     }
 
     @ConsoleDoc(description = "Save game.")
