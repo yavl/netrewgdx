@@ -3,6 +3,7 @@ package com.yavl.netrew.game.entities
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.yavl.netrew.globals.NameAssigner
 import com.yavl.netrew.game.World
@@ -38,6 +39,7 @@ fun EntityFactory.buildHuman(position: Vector2, color: Color = Color.WHITE): Ent
     humanComponent.name = NameAssigner.getUnassignedName()
     val labelComponent = Engine.createComponent(LabelComponent::class.java)
     with(labelComponent.label) {
+        touchable = Touchable.disabled
         txt = humanComponent.name
         Layer.hud.addActor(this)
     }
