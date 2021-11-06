@@ -25,6 +25,7 @@ object Lwjgl3Launcher {
             config.height = 600
             config.resizable = false
             config.useHDPI = true
+            config.forceExit = false
             return config
         }
 }
