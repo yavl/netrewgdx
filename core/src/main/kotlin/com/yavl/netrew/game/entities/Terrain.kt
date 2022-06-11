@@ -5,13 +5,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.yavl.netrew.Main
 import com.yavl.netrew.game.GameSaver
 import com.yavl.netrew.game.World
 import com.yavl.netrew.game.components.SpriteComponent
 import com.yavl.netrew.game.components.TransformComponent
 import com.yavl.netrew.game.pathfinding.FlatTiledGraph
-import com.yavl.netrew.game.pathfinding.FlatTiledNode
 import com.yavl.netrew.game.pathfinding.Pathfinder
 import com.yavl.netrew.game.pathfinding.TiledNode
 import com.yavl.netrew.globals.*
